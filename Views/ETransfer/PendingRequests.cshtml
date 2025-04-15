@@ -1,0 +1,56 @@
+﻿@using Project.Models
+@using System.Web.Mvc
+@model IEnumerable<ETransfer>
+
+@{
+    ViewBag.Title = "Pending Money Requests";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Adjust if needed
+}
+
+<h2>Pending Money Requests</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>From</th>
+                <th>Amount</th>
+                <th>Send From</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var req in Model)
+            {
+                <tr>
+                    <td>@req.RecipientEmail</td>
+                    <td>@req.Amount.ToString("C")</td>
+                    <td>
+                        <form method="post" action="@Url.Action("RespondToRequest", "ETransfer")" class="form-inline d-flex gap-2 align-items-center">
+                            <input type="hidden" name="requestId" value="@req.Id" />
+                            <select name="SenderAccountId" class="form-control me-2">
+                                @foreach (var account in ViewBag.AccountOptions as List<SelectListItem>)
+                                {
+                                    <option value="@account.Value">@account.Text</option>
+                                }
+                            </select>
+                            <button type="submit" name="response" value="accept" class="btn btn-success btn-sm">Accept</button>
+                            <button type="submit" name="response" value="deny" class="btn btn-danger btn-sm">Deny</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No pending requests at this time.</p>
+}
+
+<div class="text-center">
+    @Html.ActionLink("Back to Home", "CustomerHome", "Home", new { area = "" }, new { @class = "btn btn-primary" })
+</div>
+
+
+

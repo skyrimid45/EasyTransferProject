@@ -1,22 +1,85 @@
-﻿@{
-    Layout = "~/Views/Shared/_ETransferLayout.cshtml";
+﻿@model Project.Models.ETransfer
+
+@{
     ViewBag.Title = "Request Money";
 }
 
+<h2>E-Transfer Services</h2>
 <h3>Request Money</h3>
 <p>Fill in the details to request money from someone.</p>
 
-<form>
-    <div class="form-group">
-        <label for="email">Recipient's Email</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter recipient email">
-    </div>
-    <div class="form-group">
-        <label for="amount">Amount ($)</label>
-        <input type="number" class="form-control" id="amount" step="0.01" placeholder="Enter amount">
-    </div>
-    <button type="submit" class="btn btn-secondary">Request Money</button>
-</form>
+<div class="card p-4 shadow-sm bg-white rounded">
+    @using (Html.BeginForm("Request", "ETransfer", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <!-- Sender Name Dropdown -->
+        <div class="form-group">
+            <label for="senderDropdown">Sender Name</label>
+            <select id="senderDropdown" class="form-control">
+                <option value="">Select Sender</option>
+                @foreach (var item in (SelectList)ViewBag.Senders)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+        </div>
+
+        <!-- Autofilled Sender Email -->
+        <div class="form-group">
+            <label for="senderEmail">Sender Email</label>
+            <input type="text" name="SenderEmail" id="senderEmail" class="form-control" readonly />
+        </div>
+
+
+        <!-- Select Recipient Account (Chequing or Savings) -->
+        <div class="form-group">
+            <label for="RecipientAccountType">Deposit Into</label>
+            @Html.DropDownList("RecipientAccountType", new List<SelectListItem>
+            {
+                new SelectListItem { Value = "0", Text = "Chequing" },
+                new SelectListItem { Value = "1", Text = "Savings" }
+            }, "Select Account", new { @class = "form-control" })
+        
+        </div>
+
+        <!-- Amount -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Amount)
+            @Html.TextBoxFor(model => model.Amount, new { @class = "form-control", placeholder = "Enter Amount" })
+            @Html.ValidationMessageFor(model => model.Amount)
+        </div>
+
+        <button type="submit" class="btn btn-secondary mt-3">Submit Request</button>
+    }
+</div>
+
 <div class="text-center mt-4">
     <a href="@Url.Action("Index", "ETransfer")" class="btn btn-secondary">Back to E-Transfer Home</a>
 </div>
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#senderDropdown").change(function () {
+                var selectedId = $(this).val();
+                if (selectedId) {
+                    $.ajax({
+                        url: '@Url.Action("GetSenderEmail", "ETransfer")',
+                        type: 'GET',
+                        data: { custId: selectedId },
+                        success: function (response) {
+                            $("#senderEmail").val(response.email);
+                        },
+                        error: function (xhr) {
+                            console.error("Error fetching sender email:", xhr);
+                        }
+                    });
+                } else {
+                    $("#senderEmail").val("");
+                }
+            });
+        });
+    </script>
+}

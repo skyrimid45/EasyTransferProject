@@ -22,10 +22,10 @@ namespace Project.Models
         [Range(0.01, 10000, ErrorMessage = "Amount must be between $0.01 and $10,000.")]
         public decimal Amount { get; set; }
 
-        [Required(ErrorMessage = "Security question is required.")]
+        //[Required(ErrorMessage = "Security question is required.")]
         public string SecurityQuestion { get; set; }
 
-        [Required(ErrorMessage = "Security answer is required.")]
+        //[Required(ErrorMessage = "Security answer is required.")]
         public string SecurityAnswer { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
@@ -38,5 +38,8 @@ namespace Project.Models
 
         // Navigation property
         public virtual Customer Sender { get; set; }
+
+        public int? RecipientAccountType { get; set; }
+
     }
 }

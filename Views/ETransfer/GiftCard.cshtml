@@ -1,4 +1,8 @@
-﻿@using (Html.BeginForm("GiftCard", "ETransfer", FormMethod.Post))
+﻿<h2>E-Transfer Services</h2>
+<h3>Send a Gift Card to Someone</h3>
+<p>Fill in the details to send a gift card to someone.</p>
+
+@using (Html.BeginForm("GiftCard", "ETransfer", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -20,7 +24,11 @@
             <option value="100">100</option>
             <option value="200">200</option>
         </select>
-    </div>
+    </div><br />
 
     <button type="submit" class="btn btn-success">Send Gift Card</button>
 }
+
+<div class="text-center mt-4">
+    <a href="@Url.Action("Index", "ETransfer")" class="btn btn-secondary">Back to E-Transfer Home</a>
+</div>

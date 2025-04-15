@@ -46,20 +46,6 @@
                 @Html.ValidationMessageFor(model => model.Amount)
             </div>
 
-            <!-- Security Question -->
-            <div class="form-group">
-                @Html.LabelFor(model => model.SecurityQuestion)
-                @Html.TextBoxFor(model => model.SecurityQuestion, new { @class = "form-control", placeholder = "Security Question" })
-                @Html.ValidationMessageFor(model => model.SecurityQuestion)
-            </div>
-
-            <!-- Security Answer -->
-            <div class="form-group">
-                @Html.LabelFor(model => model.SecurityAnswer)
-                @Html.PasswordFor(model => model.SecurityAnswer, new { @class = "form-control", placeholder = "Security Answer" })
-                @Html.ValidationMessageFor(model => model.SecurityAnswer)
-            </div>
-
             <button type="submit" class="btn btn-success mt-3">Send Money</button>
         }
     </div>

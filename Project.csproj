@@ -257,6 +257,7 @@
     <Content Include="Views\Cheque\Upload.cshtml" />
     <Content Include="Views\Cheque\Review.cshtml" />
     <Content Include="Views\Admin\AllTransfers.cshtml" />
+    <Content Include="Views\ETransfer\PendingRequests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202502140040349_InitialCreate.resx">
