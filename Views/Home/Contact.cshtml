@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Contact Us";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("AskQuestion", "Home", FormMethod.Post))
+{
+    <div class="bg-light p-4 rounded mb-5 text-center">
+        <h5>Have a question? Ask Us!</h5>
+
+        <select name="topic" class="form-select w-50 mx-auto mt-3" required>
+            <option selected disabled value="">Select a topic...</option>
+            <option>Account Support</option>
+            <option>Technical Help</option>
+            <option>Loan Inquiries</option>
+            <option>Other</option>
+        </select>
+
+        <div class="input-group mt-3 w-75 mx-auto">
+            <input type="text" name="question" class="form-control" placeholder="What’s your question?" required />
+        </div>
+
+        <!-- Email Input Field -->
+        <div class="input-group mt-3 w-75 mx-auto">
+            <input type="email" name="email" class="form-control" placeholder="Enter your email" required />
+        </div>
+
+        <button type="submit" class="btn btn-success mt-3">Ask Us</button>
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-success mt-3">@TempData["Message"]</div>
+        }
+        else if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger mt-3">@TempData["Error"]</div>
+        }
+    </div>
+}

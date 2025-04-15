@@ -1,0 +1,122 @@
+﻿@{
+    ViewBag.Title = "About Us";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .about-section {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        font-family: 'Segoe UI', sans-serif;
+        color: #1a1a1a;
+    }
+
+        .about-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #2e6e4c; /* Light green - matching navbar */
+        }
+
+    .about-intro {
+        font-size: 1.2em;
+        margin-bottom: 30px;
+        line-height: 1.6;
+        text-align: center;
+    }
+
+    .slides {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+
+    .slide-card {
+        flex: 1 1 280px;
+        background-color: #f0fdf4;
+        border-left: 5px solid #2e6e4c;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        transition: transform 0.3s;
+    }
+
+        .slide-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .slide-card h4 {
+            color: #2e6e4c;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+    .framework {
+        background-color: #eafaf1;
+        border-left: 6px solid #2e6e4c;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+        .framework h4 {
+            margin-top: 10px;
+            color: #2e6e4c;
+        }
+
+    ul.commitments {
+        list-style: disc;
+        padding-left: 20px;
+        margin-top: 10px;
+    }
+
+        ul.commitments li {
+            margin-bottom: 8px;
+        }
+</style>
+
+<div class="about-section">
+    <h2>About EasyTransfer</h2>
+
+    <p class="about-intro">
+        As a modern digital banking platform, EasyTransfer is committed to standing out with a secure, efficient, and customer-first experience — rooted in our mission to empower users with seamless money management and trusted financial tools.
+    </p>
+
+    <div class="slides">
+        <div class="slide-card">
+            <h4>Proven Model</h4>
+            <p>Deliver consistent and secure services, supported by a strong foundation of innovation and reliability.</p>
+        </div>
+        <div class="slide-card">
+            <h4>Purpose-Driven</h4>
+            <p>Everything we do revolves around our users' needs, our purpose, and shared values of trust and simplicity.</p>
+        </div>
+        <div class="slide-card">
+            <h4>Forward-Focused</h4>
+            <p>We innovate continuously to lead the future of banking in the digital space.</p>
+        </div>
+    </div>
+
+    <div class="framework">
+        <h4>The EasyTransfer Framework</h4>
+        <p>Our framework reflects the culture and priorities that drive us to build an accessible, responsive, and user-centric banking experience.</p>
+
+        <h4>Our Vision:</h4>
+        <p>To be the better digital bank for everyday Canadians.</p>
+
+        <h4>Our Purpose:</h4>
+        <p>To enrich the financial lives of our users and communities through secure and easy-to-use banking tools.</p>
+
+        <h4>Our Shared Commitments:</h4>
+        <ul class="commitments">
+            <li>Think like a customer; provide legendary digital experiences.</li>
+            <li>Act like an owner; deliver with integrity and accountability.</li>
+            <li>Move fast with purpose; build features our users actually need.</li>
+            <li>Innovate with care; make online banking simple and intuitive.</li>
+            <li>Empower our team; foster diversity, support, and growth.</li>
+        </ul>
+    </div>
+</div>

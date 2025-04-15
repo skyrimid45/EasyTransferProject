@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Project.Models.Account>
+
+@{
+    ViewBag.Title = "Account List";
+}
+
+<h2>Account Page</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+</p>
+
+@Html.Partial("_Account", Model)
+
+<p>
+    @Html.ActionLink("Back to Home", "AdminHome", "Home", null, new { @class = "btn btn-primary" })
+</p>

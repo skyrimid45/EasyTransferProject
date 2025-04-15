@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Project.Models.Customer>
+
+<!-- Search Bar -->
+<input type="text" id="searchBox" class="form-control" placeholder="Search by Customer ID or Customer Name..." />
+<table class="table" id="customerTable">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.CustId)</th>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Email)</th>
+            <th>@Html.DisplayNameFor(model => model.Telephone)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.CustId)</td>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                <td>@Html.DisplayFor(modelItem => item.Telephone)</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CustId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CustId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CustId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // AutoSave: Load previous search
+        if (localStorage.getItem("customerSearchQuery")) {
+            $("#searchBox").val(localStorage.getItem("customerSearchQuery")).trigger("input");
+        }
+
+        $("#searchBox").on("input", function () {
+            var query = $(this).val();
+            localStorage.setItem("customerSearchQuery", query); // AutoSave
+
+            if (query.length >= 1) { // Autocomplete search with at least 1 character
+                $.ajax({
+                    url: '@Url.Action("Search", "Customer")',
+                    type: 'GET',
+                    data: { query: query },
+                    success: function (data) {
+                        var tableBody = $("#customerTable tbody");
+                        tableBody.empty(); // Clear table
+
+                        $.each(data, function (index, customer) {
+                            tableBody.append(`
+                                <tr>
+                                    <td>${customer.CustId}</td>
+                                    <td>${customer.Name}</td>
+                                    <td>${customer.Email ?? ''}</td>
+                                    <td>${customer.Telephone ?? ''}</td>
+                                    <td>
+                                        <a href="/Customer/Edit/${customer.CustId}">Edit</a> |
+                                        <a href="/Customer/Details/${customer.CustId}">Details</a> |
+                                        <a href="/Customer/Delete/${customer.CustId}">Delete</a>
+                                    </td>
+                                </tr>
+                            `);
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>

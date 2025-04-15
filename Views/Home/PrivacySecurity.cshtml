@@ -1,0 +1,141 @@
+﻿
+@{
+    ViewBag.Title = "Privacy & Security";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .privacy-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        font-family: 'Segoe UI', sans-serif;
+        color: #1a1a1a;
+    }
+
+        .privacy-container h2 {
+            font-size: 2.5em;
+            color: #2e6e4c;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .privacy-container p {
+            font-size: 1.15em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+    .section-highlight {
+        background-color: #f0fdf4;
+        border-left: 5px solid #2e6e4c;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 40px;
+    }
+
+        .section-highlight h3 {
+            color: #2e6e4c;
+            margin-bottom: 10px;
+        }
+
+    .card-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-between;
+    }
+
+    .card {
+        flex: 1 1 300px;
+        background-color: #eafaf1;
+        border-left: 4px solid #2e6e4c;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        transition: transform 0.3s;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h4 {
+            color: #2e6e4c;
+            margin-bottom: 10px;
+        }
+
+    ul.tip-list {
+        margin-top: 15px;
+        padding-left: 20px;
+        list-style-type: disc;
+    }
+
+        ul.tip-list li {
+            margin-bottom: 10px;
+        }
+</style>
+
+<div class="privacy-container">
+    <h2>Privacy and Security</h2>
+
+    <p>
+        At EasyTransfer, protecting the integrity and security of your banking data and transactions is our top priority—no matter how you choose to bank.
+    </p>
+
+    <div class="section-highlight">
+        <h3>Protect Yourself from Frauds and Scams</h3>
+        <p>While we work hard to keep your data safe, good online habits and fraud awareness are key to protecting yourself from identity theft and scams.</p>
+        <div class="card-grid">
+            <div class="card">
+                <h4>Common Frauds & Scams</h4>
+                <p>Learn to identify scams targeting different groups like youth, seniors, and newcomers so you can stay informed and safe.</p>
+            </div>
+            <div class="card">
+                <h4>Report Suspicious Activity</h4>
+                <p>Think you've encountered phishing or a fraudulent charge? Report it immediately so we can help protect your account.</p>
+            </div>
+            <div class="card">
+                <h4>Dispute Charges</h4>
+                <p>If you see an unfamiliar charge on your debit or credit card, learn how to submit a fraud claim or dispute request.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-highlight">
+        <h3>Our Commitment to Your Security</h3>
+        <ul class="tip-list">
+            <li><strong>Privacy Commitment:</strong> We’re transparent about how we collect and use your data.</li>
+            <li><strong>Secure Technology:</strong> We use encryption and firewalls to protect your online transactions.</li>
+            <li><strong>Report Vulnerabilities:</strong> Found a security issue? Help us improve by reporting it responsibly.</li>
+            <li><strong>Communication Preferences:</strong> Update how you receive important messages from EasyTransfer.</li>
+        </ul>
+    </div>
+
+    <div class="section-highlight">
+        <h3>Online Safety Tips & Best Practices</h3>
+        <div class="card-grid">
+            <div class="card">
+                <h4>Use Unique Passwords</h4>
+                <p>Create strong, memorable passphrases with letters, numbers, and symbols — and change them regularly.</p>
+            </div>
+            <div class="card">
+                <h4>Never Share Credentials</h4>
+                <p>We’ll never ask for your PIN or password by email. Always keep them private.</p>
+            </div>
+            <div class="card">
+                <h4>Install Firewalls</h4>
+                <p>Protect your devices and home networks from online threats with firewalls and secure settings.</p>
+            </div>
+            <div class="card">
+                <h4>Stay Updated</h4>
+                <p>Keep your anti-virus and anti-malware tools up-to-date to defend against the latest threats.</p>
+            </div>
+            <div class="card">
+                <h4>Guard Mobile Devices</h4>
+                <p>Use screen locks and avoid leaving devices unattended. Enable password protection on startup.</p>
+            </div>
+        </div>
+    </div>
+</div>

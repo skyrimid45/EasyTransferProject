@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Project.Models.Customer>
+
+
+@{
+    ViewBag.Title = "Customer List";
+}
+
+<h2>Customer Page</h2>
+
+<p>
+    @Html.ActionLink("Home", "Index", "Home", null, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Account", "Index", "Account", null, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Transactions", "Index", "Transaction", null, new { @class = "btn btn-primary" })
+</p>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@Html.Partial("_Customers", Model) 
+
+<p>
+    @Html.ActionLink("Back to Home", "AdminHome", "Home", null, new { @class = "btn btn-primary" })
+</p>

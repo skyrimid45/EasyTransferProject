@@ -1,0 +1,12 @@
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.vsp
+*.psess
+*.pidb
+*.dbmdl
+*.log
+*.vssscc
+

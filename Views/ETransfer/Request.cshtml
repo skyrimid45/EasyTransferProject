@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "~/Views/Shared/_ETransferLayout.cshtml";
+    ViewBag.Title = "Request Money";
+}
+
+<h3>Request Money</h3>
+<p>Fill in the details to request money from someone.</p>
+
+<form>
+    <div class="form-group">
+        <label for="email">Recipient's Email</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter recipient email">
+    </div>
+    <div class="form-group">
+        <label for="amount">Amount ($)</label>
+        <input type="number" class="form-control" id="amount" step="0.01" placeholder="Enter amount">
+    </div>
+    <button type="submit" class="btn btn-secondary">Request Money</button>
+</form>
+<div class="text-center mt-4">
+    <a href="@Url.Action("Index", "ETransfer")" class="btn btn-secondary">Back to E-Transfer Home</a>
+</div>

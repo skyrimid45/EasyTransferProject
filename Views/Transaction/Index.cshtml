@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Project.Models.Transaction>
+
+
+@{
+    ViewBag.Title = "Transaction List";
+}
+
+<h2>Transaction Page</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+@Html.Partial("_Transactions", Model)
+
+<p>
+    @Html.ActionLink("Back to Home", "AdminHome", "Home", null, new { @class = "btn btn-primary" })
+</p>
+

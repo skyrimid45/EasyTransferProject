@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Project.Models.ChequeUpload>
+
+@{
+    ViewBag.Title = "Review Cheques";
+}
+
+<h2>Pending Cheque Uploads</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Customer</th>
+            <th>Amount</th>
+            <th>Account</th>
+            <th>Image</th>
+            <th>Uploaded At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cheque in Model)
+        {
+            <tr>
+                <td>@cheque.Customer.Name</td>
+                <td>$@cheque.Amount</td>
+                <td>@cheque.AccountType</td>
+                <td><img src="@cheque.FilePath" width="100" /></td>
+                <td>@cheque.UploadedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>
+                    @using (Html.BeginForm("Approve", "Cheque", FormMethod.Post))
+                    {
+                        @Html.Hidden("id", cheque.Id)
+                        <button type="submit" class="btn btn-success">Approve</button>
+                    }
+                    <br />
+                    @using (Html.BeginForm("Deny", "Cheque", FormMethod.Post))
+                    {
+                        @Html.Hidden("id", cheque.Id)
+                        <button type="submit" class="btn btn-danger">Deny</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<p>
+    @Html.ActionLink("Back to Home", "AdminHome", "Home", null, new { @class = "btn btn-primary" })
+</p>
+
+

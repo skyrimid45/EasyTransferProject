@@ -1,0 +1,28 @@
+﻿@model Project.Models.Account
+
+@{
+    ViewBag.Title = "Account Details";
+}
+
+<h2>Account Details</h2>
+
+<div>
+    <h4>Employee Information</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Name:</dt>
+        <dd>@Html.DisplayFor(model => model.accountnum)</dd>
+
+        <dt>Position:</dt>
+        <dd>@Html.DisplayFor(model => model.AccountID)</dd>
+
+        <dt>Salary:</dt>
+        <dd>@Html.DisplayFor(model => model.CustId)</dd>
+       
+
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Back to List", "Index", "Employee", null, new { @class = "btn btn-secondary" })
+</p>

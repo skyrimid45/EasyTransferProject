@@ -1,0 +1,281 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <style>
+        /* General Styling */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .content-wrapper {
+            flex: 1 0 auto;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background: #006747;
+            padding: 15px 30px;
+        }
+
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #ffc107 !important;
+        }
+
+        .navbar-toggler-icon {
+            background-color: #fff;
+        }
+
+        /* Main Content Section */
+        .body-content {
+            padding: 40px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        /* Footer Styling */
+        footer {
+            flex-shrink: 0;
+            background: #003d2b;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            border-top: 3px solid #ffc107;
+        }
+
+        footer p {
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .social-icons img {
+            margin: 0 10px;
+        }
+
+        /* Button Styling */
+        .btn {
+            background-color: #006747;
+            color: white;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            border: none;
+        }
+
+        .btn:hover {
+            background-color: #004e37;
+        }
+
+        /* Responsive Styling */
+        @@media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 18px;
+            }
+
+            .nav-link {
+                font-size: 14px;
+                padding-right: 10px;
+            }
+        }
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+            .footer-links a:hover {
+                color: #ffc107;
+            }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .modal-content {
+            background: #fff;
+            color: #000;
+            padding: 30px;
+            border-radius: 10px;
+            width: 400px;
+            text-align: left;
+            position: relative;
+        }
+
+            .modal-content a {
+                color: #006747;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+                .modal-content a:hover {
+                    text-decoration: underline;
+                }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            @Html.ActionLink("EasyTransfer", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        @Html.ActionLink("Home", "RoleBasedHome", "Home", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("My Profile", "ViewProfile", "Customer", null, new { @class = "nav-link" })</li>
+
+                    @if (Session["Role"]?.ToString() == "Admin")
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-danger" href="@Url.Action("Logout", "Admin")">Logout</a>
+                        </li>
+                    }
+                    else if (Session["Role"]?.ToString() == "Customer")
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-danger" href="@Url.Action("Logout", "Customer")">Logout</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <div class="content-wrapper">
+        <div class="container mt-4">
+            <div class="body-content">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p style="font-size: 18px; margin-bottom: 10px;">
+                Need to talk to us directly?
+                <a href="@Url.Action("Contact", "Home")" style="color: #ffc107; text-decoration: none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
+                    <strong>Contact us</strong>
+                </a>
+            </p>
+            <p style="font-size: 16px;">Connect with EasyTransfer</p>
+
+            <div class="social-icons my-3">
+                <a href="https://www.facebook.com/login/" target="_blank">
+                    <img src="@Url.Content("~/Content/images/facebook.png")" alt="Facebook" width="40" height="40">
+                </a>
+                <a href="https://www.instagram.com/accounts/login/?hl=en" target="_blank">
+                    <img src="@Url.Content("~/Content/images/instagram.png")" alt="Instagram" width="40" height="40">
+                </a>
+                <a href="https://www.linkedin.com/login" target="_blank">
+                    <img src="@Url.Content("~/Content/images/linkedin.png")" alt="LinkedIn" width="40" height="40">
+                </a>
+                <a href="https://www.x.com/login" target="_blank">
+                    <img src="@Url.Content("~/Content/images/twitterx.png")" alt="TwitterX" width="40" height="40">
+                </a>
+                <a href="https://www.youtube.com" target="_blank">
+                    <img src="@Url.Content("~/Content/images/youtube.png")" alt="YouTube" width="40" height="40">
+                </a>
+            </div>
+
+            <div class="footer-links" style="margin-top: 20px;">
+                <a href="@Url.Action("PrivacySecurity", "Home")">Privacy and Security</a> /
+                <a href="@Url.Action("About", "Home")">About Us</a> /
+                <a href="#" onclick="openSiteIndexPopup()" style="color: #fff; margin-left: 15px;">Site Index</a>
+            </div>
+        </div>
+        <p class="mt-3">&copy; @DateTime.Now.Year - EasyTransfer Bank | All Rights Reserved</p>
+    </footer>
+
+    <div id="siteIndexModal" class="modal-overlay" style="display:none;">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeSiteIndexPopup()">&times;</span>
+            <h3>Site Index</h3>
+            <ul style="list-style: none; padding-left: 0;">
+                <li><a href="/Home/Index">Home</a></li>
+                <li><a href="/Home/About">About Us</a></li>
+                <li><a href="/Home/Contact">Contact</a></li>
+                <li><a href="/Home/PrivacySecurity">Privacy and Security</a></li>
+                <li><a href="/Customer/ViewProfile">My Profile</a></li>
+                <li><a href="/Admin/ManageUsers">Manage Users</a></li>
+                <li><a href="/Admin/Login">Admin Login</a></li>
+                <li><a href="/Home/AdminHome">Admin Home</a></li>
+                <li><a href="/Account/Index">Account Dashboard</a></li>
+                <li><a href="/Customer/Index">Customer Dashboard</a></li>
+                <li><a href="/Transaction/Index">Transaction Dashboard</a></li>
+                <li><a href="/Home/CustomerHome">Customer Home</a></li>
+                <li><a href="/Etransfer/Index">Etransfer Dashboard</a></li>
+                <li><a href="/Transfer/Index">Transfer Dashboard</a></li>
+            </ul>
+        </div>
+    </div>
+<script>
+    function openSiteIndexPopup() {
+        document.getElementById("siteIndexModal").style.display = "flex";
+    }
+
+    function closeSiteIndexPopup() {
+        document.getElementById("siteIndexModal").style.display = "none";
+    }
+</script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

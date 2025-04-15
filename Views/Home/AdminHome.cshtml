@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Admin Dashboard";
+}
+
+<main>
+    <div class="row mt-4">
+        <section class="col-md-3">
+            <h2>Customer</h2>
+            <p>Manage customer details and information.</p>
+            <p><a class="btn btn-outline-primary" href="/customer/index">Go to Customer &raquo;</a></p>
+        </section>
+
+        <section class="col-md-3">
+            <h2>Account</h2>
+            <p>View and manage account details.</p>
+            <p><a class="btn btn-outline-primary" href="/account/index">Go to Account &raquo;</a></p>
+        </section>
+
+        <section class="col-md-3">
+            <h2>Transaction</h2>
+            <p>Track and manage transactions.</p>
+            <p><a class="btn btn-outline-primary" href="/transaction/index">Go to Transaction &raquo;</a></p>
+        </section>
+        <section class="col-md-3">
+            <h2>Cheque Review</h2>
+            <p>Review uploaded cheques and approve/deny them.</p>
+            <p><a class="btn btn-outline-primary" href="@Url.Action("Review", "Cheque")">Go to Cheque Requests &raquo;</a></p>
+        </section>
+
+        <section class="col-md-3">
+            <h2>Manage Users</h2>
+            <p>Review Managed Users.</p>
+            <p><a class="btn btn-outline-primary" href="/Admin/ManageUsers">Go to Manage Users &raquo;</a></p>
+        </section>
+        <section class="col-md-3">
+            <h2>All Transfers</h2>
+            <p>Review Transfers</p>
+            <p><a class="btn btn-outline-primary" href="/Admin/AllTransfers">Shows All Transfers&raquo;</a></p>
+        </section>
+    </div>
+</main>
+

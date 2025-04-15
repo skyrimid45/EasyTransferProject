@@ -1,0 +1,37 @@
+﻿@model Project.Models.Customer
+
+@{
+    ViewBag.Title = "Customer Login";
+}
+
+<h2>Customer Login</h2>
+
+@using (Html.BeginForm("Login", "Customer", FormMethod.Post, new { @id = "loginForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email)
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Password)
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+}
+
+<p>Don't have an account? <a href="@Url.Action("Register", "Customer")">Register here</a></p>
+<p>Sign into another account <a href="@Url.Action("Startup", "Home")">Click here</a></p>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

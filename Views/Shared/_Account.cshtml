@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Project.Models.Account>
+
+<h2>Account Page</h2>
+
+<!-- Search Bar -->
+<input type="text" id="searchBox" class="form-control" placeholder="Search by account number or customer name..." />
+
+<table class="table" id="accountTable">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.First().AccountID)</th>
+            <th>@Html.DisplayNameFor(model => model.First().AccountNum)</th>
+            <th>@Html.DisplayNameFor(model => model.First().CustId)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.AccountID)</td>
+                <td>@Html.DisplayFor(modelItem => item.AccountNum)</td>
+                <td>@Html.DisplayFor(modelItem => item.CustId)</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.AccountID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.AccountID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.AccountID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // AutoSave: Store search input in localStorage
+        if (localStorage.getItem("searchQuery")) {
+            $("#searchBox").val(localStorage.getItem("searchQuery"));
+        }
+
+        $("#searchBox").on("input", function () {
+            var query = $(this).val();
+            localStorage.setItem("searchQuery", query); // AutoSave
+
+            if (query.length >= 2) { // AutoComplete when typing at least 2 characters
+                $.ajax({
+                    url: '@Url.Action("Search", "Account")',
+                    type: 'GET',
+                    data: { query: query },
+                    success: function (data) {
+                        var tableBody = $("#accountTable tbody");
+                        tableBody.empty(); // Clear table
+
+                        $.each(data, function (index, account) {
+                            tableBody.append(
+                                `<tr>
+                                    <td>${account.AccountID}</td>
+                                    <td>${account.AccountNum}</td>
+                                    <td>${account.CustomerName}</td>
+                                    <td>
+                                        <a href="/Account/Edit/${account.AccountID}">Edit</a> |
+                                        <a href="/Account/Details/${account.AccountID}">Details</a> |
+                                        <a href="/Account/Delete/${account.AccountID}">Delete</a>
+                                    </td>
+                                </tr>`
+                            );
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>

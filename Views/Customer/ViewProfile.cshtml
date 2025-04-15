@@ -1,0 +1,45 @@
+﻿
+@model Project.Models.Customer
+
+@{
+    ViewBag.Title = "Profile";
+}
+
+<h2>Profile</h2>
+
+<div class="row">
+    <!-- Left Column: Profile Info -->
+    <div class="col-md-6">
+        <h3>Basic Information</h3>
+        <p><strong>Name:</strong> @Model.Name</p>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Phone:</strong> @Model.Telephone</p>
+
+        <a href="@Url.Action("Edit", "Customer", new { id = Model.CustId })" class="btn btn-success">Edit Profile</a>
+        <a href="@Url.Action("CustomerHome", "Home")" class="btn btn-dark ml-2">Back to Home</a>
+    </div>
+
+    <!-- Right Column: Account Balances -->
+    <div class="col-md-6">
+        <h3>Account Balances</h3>
+        <div class="card bg-light p-3 mb-3">
+            <h4>Chequing Account</h4>
+            <p><strong>Balance:</strong> $@ViewBag.ChequingBalance.ToString("N2")</p>
+        </div>
+        <div class="card bg-light p-3 mb-3">
+            <h4>Savings Account</h4>
+            <p><strong>Balance:</strong> $@ViewBag.SavingsBalance.ToString("N2")</p>
+        </div>
+        @{
+            // Assuming you passed in a Customer as your model AND included their related Accounts via eager loading
+            var account = ViewBag.GiftAccount as Project.Models.Account;
+        }
+
+        <div class="card bg-light p-3">
+            <h4>Gift</h4>
+            <p><strong>Gift Balance:</strong> $@ViewBag.GiftBalance.ToString("N2")</p>
+        </div>
+
+
+    </div>
+</div>

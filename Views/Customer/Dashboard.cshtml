@@ -1,0 +1,8 @@
+﻿@{
+    ViewBag.Title = "Customer Dashboard";
+}
+
+<h2>Welcome, @Session["Name"]!</h2>
+
+<p><a href="@Url.Action("Logout", "Customer")" class="btn btn-danger">Logout</a></p>
+

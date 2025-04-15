@@ -1,0 +1,28 @@
+﻿@model Project.Models.TransferView
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Transfer Money</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label>From Account</label>
+        @Html.DropDownListFor(m => m.FromAccountId, new SelectList(Model.Accounts, "AccountID", "Type"), "Select", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>To Account</label>
+        @Html.DropDownListFor(m => m.ToAccountId, new SelectList(Model.Accounts, "AccountID", "Type"), "Select", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Amount</label>
+        @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", type = "number", step = "0.01" })
+    </div>
+    <button type="submit" class="btn btn-success">Transfer</button>
+}
+<div class="text-center">
+    @Html.ActionLink("Back to Home", "CustomerHome", "Home", new { area = "" }, new { @class = "btn btn-primary" })
+</div>
+

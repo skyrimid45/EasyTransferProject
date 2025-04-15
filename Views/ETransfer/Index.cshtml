@@ -1,0 +1,44 @@
+﻿@model Project.Models.ETransfer
+
+
+@{
+    Layout = "~/Views/Shared/_ETransferLayout.cshtml";
+    ViewBag.Title = "E-Transfer Services";
+}
+
+<h3>Select an option</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Send Money</h5>
+                <p class="card-text">Transfer funds securely to a recipient.</p>
+                <a href="@Url.Action("SendMoney", "ETransfer")" class="btn btn-primary">Send Money</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Request Money</h5>
+                <p class="card-text">Ask someone to send you money.</p>
+                <a href="@Url.Action("Request", "ETransfer")" class="btn btn-secondary">Request Money</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Send Gift Card</h5>
+                <p class="card-text">Send a digital gift card to someone.</p>
+                <a href="@Url.Action("GiftCard", "ETransfer")" class="btn btn-success">Send Gift Card</a>
+            </div>
+        </div>
+    </div>
+</div><br />
+<div class="text-center">
+    @Html.ActionLink("Back to Home", "CustomerHome", "Home", new { area = "" }, new { @class = "btn btn-primary" })
+</div>
