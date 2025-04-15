@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<Project.Models.Customer>
- < !--Use the correct model for customers-- >
 
 @{
     ViewBag.Title = "Manage Users";
@@ -44,4 +43,7 @@
         }
     </tbody>
 </table>
+<p>
+    @Html.ActionLink("Back to Home", "AdminHome", "Home", null, new { @class = "btn btn-primary" })
+</p>
 

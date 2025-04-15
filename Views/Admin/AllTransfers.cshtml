@@ -3,6 +3,7 @@
 }
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<h2>View Customer Transfers</h2>
 
 <div class="container mt-4">
     <!-- Grouping Section -->
@@ -70,8 +71,10 @@
             </tbody>
         </table>
     </div>
-</div>
-
+</div><br />
+<p>
+    @Html.ActionLink("Back to Home", "AdminHome", "Home", null, new { @class = "btn btn-primary" })
+</p>
 <script>
     $(document).ready(function () {
         // Toggle E-Transfers Section

@@ -8,8 +8,9 @@
 {
     <div class="form-group">
         <label>Upload Image</label>
-        <input type="file" name="chequeImage" class="form-control" required />
-    </div>
+        <input type="file" id="chequeUpload" name="chequeImage" class="form-control" required />
+        <button type="button" class="btn btn-danger mt-2" onclick="clearChequeFile()">Remove</button>
+    </div><br />
 
     <div class="form-group">
         <label>Deposit Amount</label>
@@ -25,7 +26,7 @@
         </select>
     </div>
 
-    <button type="submit" class="btn btn-success">Upload</button>
+    <button type="submit" class="btn btn-danger mt-2">Upload</button>
 }
 
 @if (ViewBag.Message != null)
@@ -36,9 +37,16 @@
 {
     <div class="alert alert-danger mt-3">@ViewBag.Error</div>
 }
+
 <div class="text-center">
     @Html.ActionLink("Back to Home", "CustomerHome", "Home", new { area = "" }, new { @class = "btn btn-primary" })
 </div>
+
+@section scripts {
+    <script>function clearChequeFile() {
+            document.getElementById("chequeUpload").value = "";
+        }</script>
+}
 
 
 
