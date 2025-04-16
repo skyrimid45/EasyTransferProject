@@ -4,7 +4,7 @@
     ViewBag.Title = "Customer Login";
 }
 
-<h2>Customer Login</h2>
+<h2>User Login</h2>
 
 @using (Html.BeginForm("Login", "Customer", FormMethod.Post, new { @id = "loginForm" }))
 {
@@ -28,7 +28,6 @@
 }
 
 <p>Don't have an account? <a href="@Url.Action("Register", "Customer")">Register here</a></p>
-<p>Sign into another account <a href="@Url.Action("Startup", "Home")">Click here</a></p>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

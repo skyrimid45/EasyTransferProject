@@ -76,7 +76,7 @@ namespace Project.Controllers
         {
             // Clear session data on logout
             Session.Clear();
-            return RedirectToAction("Login", "Admin");
+            return RedirectToAction("Login", "Customer");
         }
 
         // Show Registration Form
