@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using Project.Models; // Ensure this is your correct namespace
+using Project.Models; 
 using System.Security.Cryptography;
 using System.Text;
 using System;
@@ -146,8 +146,8 @@ namespace Project.Controllers
                 return Convert.ToBase64String(hashBytes); // Store and compare hashed passwords
             }
         }
-    
-    [HttpPost]
+
+        [HttpPost]
         public ActionResult DeleteUser(int customerId)
         {
             if (!IsAdmin()) return RedirectToAction("NotAuthorized", "Home");
@@ -155,12 +155,22 @@ namespace Project.Controllers
             var customer = db.Customers.Find(customerId);
             if (customer != null)
             {
+                // Prevent the currently logged-in admin from deleting themselves
+                if (customer.CustId == (int?)Session["AdminId"])
+                {
+                    TempData["ErrorMessage"] = "You cannot delete your own account.";
+                    return RedirectToAction("ManageUsers");
+                }
+
                 db.Customers.Remove(customer);
                 db.SaveChanges();
+
+                TempData["SuccessMessage"] = "User deleted successfully.";
             }
 
-            return RedirectToAction("ManageUsers");
+            return RedirectToAction("ManageUsers"); // Ensures a return in all code paths
         }
+
         // GET: Admin/AllTransfers
         public ActionResult AllTransfers()
         {
