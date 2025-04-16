@@ -6,7 +6,6 @@
 
 <h2>Manage Users</h2>
 
-<!-- ✅ Show feedback messages -->
 @if (TempData["SuccessMessage"] != null)
 {
     <div class="alert alert-success">@TempData["SuccessMessage"]</div>
@@ -19,6 +18,8 @@
 <table class="table">
     <thead>
         <tr>
+            <th>User ID</th>
+            <th>Account ID(s)</th>
             <th>Username</th>
             <th>Email</th>
             <th>Role</th>
@@ -29,20 +30,33 @@
         @foreach (var user in Model)
         {
             <tr>
+                <td>@user.CustId</td>
+                <td>
+                    @if (user.Accounts != null && user.Accounts.Any())
+                    {
+                        foreach (var acc in user.Accounts)
+                        {
+                            @acc.AccountID <text> , </text>
+                        }
+                    }
+                    else
+                    {
+                        <text>N/A</text>
+                    }
+                </td>
                 <td>@user.Name</td>
                 <td>@user.Email</td>
-                <td>@user.Role</td> <!-- Display the role -->
+                <td>@user.Role</td>
                 <td>
                     @using (Html.BeginForm("ManageUsers", "Admin", FormMethod.Post))
                     {
                         <input type="hidden" name="customerId" value="@user.CustId" />
                         <select name="role">
                             <option value="Admin" @(user.Role == "Admin" ? "selected" : "")>Admin</option>
-                            <option value="User" @(user.Role == "User" ? "selected" : "")>User</option>
+                            <option value="Customer" @(user.Role == "Customer" ? "selected" : "")>Customer</option>
                         </select>
                         <input type="submit" value="Change Role" />
                     }
-                    <!-- Delete User Form -->
                     @using (Html.BeginForm("DeleteUser", "Admin", FormMethod.Post))
                     {
                         <input type="hidden" name="customerId" value="@user.CustId" />
