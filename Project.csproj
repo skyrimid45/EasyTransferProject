@@ -259,6 +259,7 @@
     <Content Include="Views\Admin\AllTransfers.cshtml" />
     <Content Include="Views\ETransfer\PendingRequests.cshtml" />
     <Content Include="Views\Customer\ProfileEdit.cshtml" />
+    <Content Include="Views\ETransfer\MyTransactions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202502140040349_InitialCreate.resx">

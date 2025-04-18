@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "My Transactions";
+}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<h2>My Transactions</h2>
+
+<div class="container mt-4">
+    <!-- Toggle Buttons -->
+    <button id="toggleETransfers" class="btn btn-primary">Show E-Transfers</button>
+    <button id="toggleCheques" class="btn btn-secondary">Show My Cheques</button>
+
+    <!-- E-Transfers -->
+    <div id="eTransfersSection" style="display:none;">
+        <h3>E-Transfers</h3>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Sender Email</th>
+                    <th>Recipient Email</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Transfer Type</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var t in ViewBag.ETransfers)
+                {
+                    <tr>
+                        <td>@(((Dictionary<int, string>)ViewBag.SenderEmails).ContainsKey(t.SenderId) ? ((Dictionary<int, string>)ViewBag.SenderEmails)[t.SenderId] : "N/A")</td>
+                        <td>@t.RecipientEmail</td>
+                        <td>@t.Amount.ToString("C")</td>
+                        <td>@t.Status</td>
+                        <td>@t.TransferType</td>
+                        <td>@t.TransferDate.ToString("g")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- My Cheques -->
+    <div id="chequesSection" style="display:none;">
+        <h3>My Cheque Uploads</h3>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Account Type</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Uploaded At</th>
+                    <th>Cheque Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in ViewBag.MyCheques)
+                {
+                    <tr>
+                        <td>@c.AccountType</td>
+                        <td>@c.Amount.ToString("C")</td>
+                        <td>@c.Status</td>
+                        <td>@c.UploadedAt.ToString("g")</td>
+                        <td>
+                            <img src="@Url.Content(c.FilePath)" alt="Cheque Image" style="max-width:100px; max-height:100px;" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a href="@Url.Action("CustomerHome", "Home")" class="btn btn-secondary">Back to Home</a>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#toggleETransfers').click(function () {
+            $('#eTransfersSection').toggle();
+        });
+        $('#toggleCheques').click(function () {
+            $('#chequesSection').toggle();
+        });
+    });
+</script>
+

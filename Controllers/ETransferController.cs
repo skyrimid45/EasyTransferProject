@@ -401,6 +401,46 @@ namespace Project.Controllers
 
         }
 
+        public ActionResult MyTransactions()
+        {
+            int? custId = Session["CustId"] as int?;
+            if (custId == null)
+                return RedirectToAction("Login", "Customer");
+
+            string myEmail = db.Customers.FirstOrDefault(c => c.CustId == custId)?.Email;
+
+            // Get E-Transfers where user is sender or recipient
+            var myETransfers = db.ETransfers
+                .Where(e => e.SenderId == custId || e.RecipientEmail == myEmail)
+                .OrderByDescending(e => e.TransferDate)
+                .ToList();
+
+            // Get internal account transfers (if you're keeping this)
+            var myTransactions = db.Transactions
+                .Where(t => t.CustId == custId)
+                .OrderByDescending(t => t.Date)
+                .ToList();
+
+            // Get cheque uploads for the current user
+            var myCheques = db.ChequeUploads
+                .Where(c => c.CustId == custId)
+                .OrderByDescending(c => c.UploadedAt)
+                .ToList();
+
+            // Map sender IDs to emails for E-Transfers
+            var senderIds = myETransfers.Select(e => e.SenderId).Distinct().ToList();
+            var senderEmails = db.Customers
+                .Where(c => senderIds.Contains(c.CustId))
+                .ToDictionary(c => c.CustId, c => c.Email);
+
+            ViewBag.ETransfers = myETransfers;
+            ViewBag.AccountTransfers = myTransactions;
+            ViewBag.MyCheques = myCheques;
+            ViewBag.SenderEmails = senderEmails;
+
+            return View();
+        }
+
 
         // GET: Success Page
         public ActionResult Success()
