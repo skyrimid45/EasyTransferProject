@@ -1,0 +1,47 @@
+﻿@model Project.Models.Customer
+
+@{
+    ViewBag.Title = "Edit Profile";
+}
+
+<h2>Edit Profile</h2>
+@if (ViewBag.SuccessMessage != null)
+{
+    <div class="alert alert-success">@ViewBag.SuccessMessage</div>
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.CustId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name)
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Name)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email)
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Email)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Telephone)
+        @Html.TextBoxFor(model => model.Telephone, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Telephone)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Password)
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Leave blank to keep current password" })
+        @Html.ValidationMessageFor(model => model.Password)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a href="@Url.Action("ViewProfile", "Customer")" class="btn btn-secondary ml-2">Cancel</a>
+}
+

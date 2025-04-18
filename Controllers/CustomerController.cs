@@ -292,6 +292,51 @@ namespace Project.Controllers
             return View(customer);
         }
 
+        public ActionResult EditProfile(int id)
+        {
+            if (!IsCustomer()) return RedirectToAction("Login");
+
+            var customer = db.Customers.FirstOrDefault(c => c.CustId == id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+            return View("ProfileEdit", customer); // uses ProfileEdit.cshtml
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile(Customer customer)
+        {
+            if (!IsCustomer()) return RedirectToAction("Login");
+
+            if (ModelState.IsValid)
+            {
+                var existingCustomer = db.Customers.FirstOrDefault(c => c.CustId == customer.CustId);
+                if (existingCustomer != null)
+                {
+                    existingCustomer.Name = customer.Name;
+                    existingCustomer.Email = customer.Email;
+                    existingCustomer.Telephone = customer.Telephone;
+
+                    // Update password only if it's not empty
+                    if (!string.IsNullOrWhiteSpace(customer.Password))
+                    {
+                        existingCustomer.Password = Hash256.HashPassword(customer.Password);
+                    }
+
+                    db.SaveChanges();
+                    ViewBag.SuccessMessage = "Profile updated successfully!";
+                }
+
+                // Return the same view with updated model and success message
+                return View("ProfileEdit", customer);
+            }
+
+            return View("ProfileEdit", customer);
+        }
+
+
 
 
         private int GenerateAccountNumber()

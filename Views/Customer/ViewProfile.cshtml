@@ -15,7 +15,7 @@
         <p><strong>Email:</strong> @Model.Email</p>
         <p><strong>Phone:</strong> @Model.Telephone</p>
 
-        <a href="@Url.Action("Edit", "Customer", new { id = Model.CustId })" class="btn btn-success">Edit Profile</a>
+        <a href="@Url.Action("EditProfile", "Customer", new { id = Model.CustId })" class="btn btn-success">Edit Profile</a>
         <a href="@Url.Action("CustomerHome", "Home")" class="btn btn-dark ml-2">Back to Home</a>
     </div>
 
@@ -31,7 +31,6 @@
             <p><strong>Balance:</strong> $@ViewBag.SavingsBalance.ToString("N2")</p>
         </div>
         @{
-            // Assuming you passed in a Customer as your model AND included their related Accounts via eager loading
             var account = ViewBag.GiftAccount as Project.Models.Account;
         }
 
