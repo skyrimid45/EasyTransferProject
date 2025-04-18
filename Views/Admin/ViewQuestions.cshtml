@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Project.Models.ContactMessage>
+@{
+    ViewBag.Title = "Customer Questions";
+}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<h2>Customer Questions</h2>
+
+<div class="container mt-4">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Topic</th>
+                <th>Question</th>
+                <th>Date Submitted</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var q in Model)
+            {
+                <tr>
+                    <td>@q.Email</td>
+                    <td>@q.Topic</td>
+                    <td>@q.Question</td>
+                    <td>@q.DateSubmitted.ToString("g")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<p>
+    @Html.ActionLink("Back to Dashboard", "AdminHome", "Home", null, new { @class = "btn btn-primary" })
+</p>
+
+@{
+    ViewBag.Title = "ViewQuestions";
+}
+

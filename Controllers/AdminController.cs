@@ -188,6 +188,13 @@ namespace Project.Controllers
 
             return View();
         }
+        public ActionResult ViewQuestions()
+        {
+            if (!IsAdmin()) return RedirectToAction("NotAuthorized", "Home");
+
+            var messages = db.ContactMessages.OrderByDescending(m => m.DateSubmitted).ToList();
+            return View(messages);
+        }
 
 
 

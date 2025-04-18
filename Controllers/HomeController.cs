@@ -1,6 +1,8 @@
 ﻿using System.Net.Mail;
 using System.Net;
 using System.Web.Mvc;
+using Project.Models;
+using System;
 
 public class HomeController : Controller
 {
@@ -89,7 +91,22 @@ public class HomeController : Controller
             TempData["Error"] = "Please enter a question, select a topic, and provide your email address.";
             return RedirectToAction("Contact");
         }
+        // Save question to the database
+        using (var context = new CustomerContext())
+        {
+            var newContactMessage = new ContactMessage
+            {
+                Question = question,
+                Topic = topic,
+                Email = email,
+                DateSubmitted = DateTime.Now
+            };
 
+            context.ContactMessages.Add(newContactMessage);
+            context.SaveChanges();
+        }
+
+        // Send the email
         string recipientEmail = GetRecipientEmail(topic); 
         try
         {

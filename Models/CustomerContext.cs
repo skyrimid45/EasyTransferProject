@@ -21,6 +21,8 @@ namespace Project.Models
         public DbSet<ETransfer> ETransfers { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<ChequeUpload> ChequeUploads { get; set; }
+        public DbSet<ContactMessage> ContactMessages { get; set; }
+
 
         // override method to configure cascade delete
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

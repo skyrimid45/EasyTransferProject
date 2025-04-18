@@ -147,6 +147,7 @@
     <Compile Include="Models\AccountContext.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\ChequeUpload.cs" />
+    <Compile Include="Models\ContactMessage.cs" />
     <Compile Include="Models\Etransfer.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\CustomerContext.cs" />
@@ -260,6 +261,7 @@
     <Content Include="Views\ETransfer\PendingRequests.cshtml" />
     <Content Include="Views\Customer\ProfileEdit.cshtml" />
     <Content Include="Views\ETransfer\MyTransactions.cshtml" />
+    <Content Include="Views\Admin\ViewQuestions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202502140040349_InitialCreate.resx">
