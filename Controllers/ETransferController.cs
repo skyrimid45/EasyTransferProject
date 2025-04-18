@@ -242,7 +242,7 @@ namespace Project.Controllers
             var request = db.ETransfers.FirstOrDefault(r => r.Id == requestId);
             var senderAccount = db.Accounts.FirstOrDefault(a => a.AccountID == SenderAccountId);
 
-            // ✅ Get recipient using their stored email in the request
+            // Get recipient using their stored email in the request
             var recipient = db.Customers.FirstOrDefault(c => c.Email == request.RecipientEmail);
 
             if (request == null || senderAccount == null || recipient == null)
@@ -252,7 +252,7 @@ namespace Project.Controllers
             {
                 senderAccount.Balance -= request.Amount;
 
-                // ✅ Deposit into the correct account type chosen by recipient
+                // Deposit into the correct account type chosen by recipient
                 var recipientAccount = db.Accounts
                     .FirstOrDefault(a => a.CustId == recipient.CustId && (int)a.Type == request.RecipientAccountType);
 
@@ -324,7 +324,7 @@ namespace Project.Controllers
             {
                 ModelState.AddModelError("", "Invalid input or insufficient funds.");
 
-                // ✅ Repopulate dropdowns
+                // Repopulate dropdowns
                 var accountOptions = db.Accounts
                     .Where(a => a.CustId == senderCustId && (a.Type == AccountType.Chequings || a.Type == AccountType.Savings))
                     .Select(a => new SelectListItem
@@ -352,7 +352,7 @@ namespace Project.Controllers
             {
                 ModelState.AddModelError("", "Recipient does not have an account.");
 
-                // ✅ Repopulate dropdowns again
+                // Repopulate dropdowns again
                 var accountOptions = db.Accounts
                     .Where(a => a.CustId == senderCustId && (a.Type == AccountType.Chequings || a.Type == AccountType.Savings))
                     .Select(a => new SelectListItem

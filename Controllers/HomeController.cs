@@ -122,7 +122,6 @@ public class HomeController : Controller
         return RedirectToAction("Contact");
     }
 
-    // ✅ Make sure this method is inside the controller
     private string GetRecipientEmail(string topic)
     {
         switch (topic)
