@@ -41,7 +41,7 @@ namespace Project.Controllers
         // GET: Send Money Page
         public ActionResult SendMoney()
         {
-            int? customerId = Session["CustId"] as int?; // ✅ Match the key used in POST
+            int? customerId = Session["CustId"] as int?; 
 
             if (customerId == null)
                 return RedirectToAction("Login", "Customer");
@@ -156,7 +156,7 @@ namespace Project.Controllers
             }
 
             model.SenderId = senderAccount.CustId ?? 0;
-            model.TransferType = "Send"; // 🛠️ Fixes the NULL error
+            model.TransferType = "Send"; 
             model.CreatedAt = DateTime.Now;
             model.TransferDate = DateTime.Now;
             model.Status = "Sent";
@@ -375,14 +375,30 @@ namespace Project.Controllers
                 return View();
             }
 
-            // ✅ Perform the gift transfer
+            // Perform the gift transfer
             senderAccount.Balance -= GiftAmount;
             recipientAccount.GiftBalance += GiftAmount;
 
+            // Also record it as an ETransfer
+            var giftTransfer = new ETransfer
+            {
+                SenderId = senderAccount.CustId ?? 0,
+                RecipientEmail = recipient.Email,
+                Amount = GiftAmount,
+                TransferType = "Gift",
+                Status = "Sent",
+                CreatedAt = DateTime.Now,
+                TransferDate = DateTime.Now,
+                SecurityQuestion = "",
+                SecurityAnswer = ""
+            };
+
+            db.ETransfers.Add(giftTransfer);
             db.SaveChanges();
 
             TempData["SuccessMessage"] = "Gift card sent successfully!";
             return RedirectToAction("GiftCard");
+
         }
 
 
