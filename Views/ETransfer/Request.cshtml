@@ -7,6 +7,12 @@
 <h2>E-Transfer Services</h2>
 <h3>Request Money</h3>
 <p>Fill in the details to request money from someone.</p>
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
 
 <div class="card p-4 shadow-sm bg-white rounded">
     @using (Html.BeginForm("Request", "ETransfer", FormMethod.Post))
@@ -36,11 +42,11 @@
         <div class="form-group">
             <label for="RecipientAccountType">Deposit Into</label>
             @Html.DropDownList("RecipientAccountType", new List<SelectListItem>
-            {
+    {
                 new SelectListItem { Value = "0", Text = "Chequing" },
                 new SelectListItem { Value = "1", Text = "Savings" }
             }, "Select Account", new { @class = "form-control" })
-        
+
         </div>
 
         <!-- Amount -->

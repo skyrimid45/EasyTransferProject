@@ -215,8 +215,8 @@ namespace Project.Controllers
 
             var request = new ETransfer
             {
-                SenderId = sender.CustId, // ✅ Sender is the one selected in the dropdown
-                RecipientEmail = recipient.Email, // ✅ Recipient is the logged-in user
+                SenderId = sender.CustId, // Sender is the one selected in the dropdown
+                RecipientEmail = recipient.Email, // Recipient is the logged-in user
                 Amount = Amount,
                 TransferType = "Request",
                 Status = "Pending",
@@ -262,10 +262,12 @@ namespace Project.Controllers
                 }
 
                 request.Status = "Sent";
+                TempData["SuccessMessage"] = "Money request accepted and sent successfully!";
             }
             else if (response == "deny")
             {
                 request.Status = "Denied";
+                TempData["ErrorMessage"] = "Money request has been denied.";
             }
 
             db.SaveChanges();
@@ -281,6 +283,7 @@ namespace Project.Controllers
             if (custId == null)
                 return RedirectToAction("Login", "Customer");
 
+            // Account dropdown
             var accountOptions = db.Accounts
                 .Where(a => a.CustId == custId && (a.Type == AccountType.Chequings || a.Type == AccountType.Savings))
                 .Select(a => new SelectListItem
@@ -291,8 +294,19 @@ namespace Project.Controllers
 
             ViewBag.AccountOptions = new SelectList(accountOptions, "Value", "Text");
 
+            var recipients = db.Customers
+                .Where(c => c.CustId != custId)
+                .Select(c => new SelectListItem
+                {
+                    Value = c.CustId.ToString(),
+                    Text = c.Name
+                }).ToList();
+
+            ViewBag.Recipients = new SelectList(recipients, "Value", "Text");
+
             return View();
         }
+
 
         // POST: /ETransfer/GiftCard
         [HttpPost]
@@ -310,7 +324,7 @@ namespace Project.Controllers
             {
                 ModelState.AddModelError("", "Invalid input or insufficient funds.");
 
-                // Repopulate dropdown
+                // ✅ Repopulate dropdowns
                 var accountOptions = db.Accounts
                     .Where(a => a.CustId == senderCustId && (a.Type == AccountType.Chequings || a.Type == AccountType.Savings))
                     .Select(a => new SelectListItem
@@ -319,7 +333,17 @@ namespace Project.Controllers
                         Text = a.Type == AccountType.Chequings ? "Chequing" : "Savings"
                     }).ToList();
 
+                var recipients = db.Customers
+                    .Where(c => c.CustId != senderCustId)
+                    .Select(c => new SelectListItem
+                    {
+                        Value = c.CustId.ToString(),
+                        Text = c.Name
+                    }).ToList();
+
                 ViewBag.AccountOptions = new SelectList(accountOptions, "Value", "Text");
+                ViewBag.Recipients = new SelectList(recipients, "Value", "Text");
+
                 return View();
             }
 
@@ -327,10 +351,31 @@ namespace Project.Controllers
             if (recipientAccount == null)
             {
                 ModelState.AddModelError("", "Recipient does not have an account.");
+
+                // ✅ Repopulate dropdowns again
+                var accountOptions = db.Accounts
+                    .Where(a => a.CustId == senderCustId && (a.Type == AccountType.Chequings || a.Type == AccountType.Savings))
+                    .Select(a => new SelectListItem
+                    {
+                        Value = a.AccountID.ToString(),
+                        Text = a.Type == AccountType.Chequings ? "Chequing" : "Savings"
+                    }).ToList();
+
+                var recipients = db.Customers
+                    .Where(c => c.CustId != senderCustId)
+                    .Select(c => new SelectListItem
+                    {
+                        Value = c.CustId.ToString(),
+                        Text = c.Name
+                    }).ToList();
+
+                ViewBag.AccountOptions = new SelectList(accountOptions, "Value", "Text");
+                ViewBag.Recipients = new SelectList(recipients, "Value", "Text");
+
                 return View();
             }
 
-            // Transfer the gift
+            // ✅ Perform the gift transfer
             senderAccount.Balance -= GiftAmount;
             recipientAccount.GiftBalance += GiftAmount;
 
@@ -339,6 +384,7 @@ namespace Project.Controllers
             TempData["SuccessMessage"] = "Gift card sent successfully!";
             return RedirectToAction("GiftCard");
         }
+
 
         // GET: Success Page
         public ActionResult Success()

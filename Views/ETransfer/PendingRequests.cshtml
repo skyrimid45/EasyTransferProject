@@ -8,6 +8,15 @@
 }
 
 <h2>Pending Money Requests</h2>
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
 
 @if (Model != null && Model.Any())
 {
